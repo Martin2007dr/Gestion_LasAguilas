@@ -3,8 +3,8 @@ from django.shortcuts import render
 from apps.socios.models import Socio
 from apps.cuotas.models import Pago_Cuota
 from apps.entrenamientos.models import Entrenamiento
-
-@Login_required
+from django.contrib.auth.decorators import login_required
+@login_required
 def home(request):
     total_socios = Socio.objects.filter(activo=True).count()
     socios_sin_apto = Socio.objects.filter(activo=True, apto_medico_al_dia=False).count()

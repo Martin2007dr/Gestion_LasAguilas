@@ -2,13 +2,14 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from .models import Pago_Cuota
 from apps.socios.models import Socio
+from django.contrib.auth.decorators import login_required
 
-@Login_required
+@login_required
 def lista_cuotas(request):
     pagos = Pago_Cuota.objects.select_related('socio').order_by('-fecha_pago')
     return render(request, 'cuotas/list.html', {'pagos': pagos})
 
-@Login_required
+@login_required
 def registrar_pago(request):
     if request.method == 'POST':
         socio_id = request.POST.get('socio')

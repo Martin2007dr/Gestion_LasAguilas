@@ -2,13 +2,13 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from .models import Entrenamiento, Asistencia
 from apps.socios.models import Socio
-
-@Login_required
+from django.contrib.auth.decorators import login_required
+@login_required
 def lista_entrenamientos(request):
     entrenamientos = Entrenamiento.objects.all().order_by('-fecha_hora')
     return render(request, 'entrenamientos/lista.html', {'entrenamientos': entrenamientos})
 
-@Login_required
+@login_required
 def crear_entrenamiento(request):
     if request.method == 'POST':
         categoria = request.POST.get('categoria')
@@ -26,7 +26,7 @@ def crear_entrenamiento(request):
         'categorias': Socio.CATEGORIAS
     })
 
-@Login_required
+@login_required
 def tomar_asistencia(request, pk):
     try:
         entrenamiento = Entrenamiento.objects.get(pk=pk)
