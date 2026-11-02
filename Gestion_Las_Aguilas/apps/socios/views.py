@@ -2,10 +2,12 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from .models import Socio 
 
+@Login_required
 def lista_socios(request):
     socios = Socio.objects.all()
     return render(request, 'socios/lista_socios.html', {'socios': socios})
 
+@Login_required
 def crear_socio(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
@@ -35,6 +37,7 @@ def crear_socio(request):
         'titulo': 'Registrar Nuevo Socio',
         'categorias': Socio.CATEGORIAS
     })
+@Login_required
 def editar_socio(request, pk):
     try:
         socio = Socio.objects.get(pk=pk)
@@ -60,7 +63,7 @@ def editar_socio(request, pk):
         'categorias': Socio.CATEGORIAS
     })
 
-# 4. Dar de baja (Eliminar)
+@Login_required
 def eliminar_socio(request, pk):
     try:
         socio = Socio.objects.get(pk=pk)

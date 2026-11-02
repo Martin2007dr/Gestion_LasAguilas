@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import MaterialDeportivo, PrestamoMaterial
 
-
+@Login_required
 def lista_inventario(request):
     materiales = MaterialDeportivo.objects.all()
     prestamos = PrestamoMaterial.objects.filter(devuelto=False).order_by('-fecha_prestamo')
@@ -10,7 +10,7 @@ def lista_inventario(request):
         'prestamos': prestamos
     })
 
-
+@Login_required
 def crear_material(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
@@ -27,7 +27,7 @@ def crear_material(request):
 
     return render(request, 'inventario/form_material.html')
 
-
+@Login_required
 def registrar_prestamo(request):
     if request.method == 'POST':
         material_id = request.POST.get('material')
@@ -49,7 +49,7 @@ def registrar_prestamo(request):
     materiales = MaterialDeportivo.objects.filter(cantidad_disponible__gt=0)
     return render(request, 'inventario/form_prestamo.html', {'materiales': materiales})
 
-
+@Login_required
 def devolver_material(request, pk):
     prestamo = get_object_or_404(PrestamoMaterial, pk=pk)
     if not prestamo.devuelto:
