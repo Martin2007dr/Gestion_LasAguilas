@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 600px;">
+    <h2>Programar Entrenamiento</h2>
+    <form method="POST" class="card card-body shadow-sm mt-3">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Categoría</label>
+            <select name="categoria" class="form-select" required>
+                {% for clave, valor in categorias %}
+                    <option value="{{ clave }}">{{ valor }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha y Hora</label>
+            <input type="datetime-local" name="fecha_hora" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Lugar</label>
+            <input type="text" name="lugar" value="Cancha Las Águilas" class="form-control" required>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+            <a href="{% url 'lista_entrenamientos' %}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar y Tomar Asistencia</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

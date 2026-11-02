@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-white"><span style="color: #e91e63;">▌</span> Control de Inventario</h2>
+        <div>
+            <a href="{% url 'crear_material' %}" class="btn btn-fucsia me-2">+ Nuevo Material</a>
+            <a href="{% url 'registrar_prestamo' %}" class="btn btn-outline-light">+ Prestar Material</a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Stock de Materiales -->
+        <div class="col-lg-7">
+            <div class="card card-dark card-glow p-3 h-100">
+                <h5 class="fw-bold text-white mb-3">📦 Stock Disponible</h5>
+                <div class="table-responsive">
+                    <table class="table table-dark-custom align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Elemento</th>
+                                <th>Disponible</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for m in materiales %}
+                            <tr>
+                                <td><strong>{{ m.nombre }}</strong></td>
+                                <td>
+                                    <span class="badge {% if m.cantidad_disponible > 0 %}bg-success{% else %}bg-danger{% endif %}">
+                                        {{ m.cantidad_disponible }}
+                                    </span>
+                                </td>
+                                <td>{{ m.cantidad_total }}</td>
+                                <td><small class="text-muted">{{ m.estado }}</small></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-3 text-muted">Sin elementos registrados.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Préstamos Activos -->
+        <div class="col-lg-5">
+            <div class="card card-dark card-glow p-3 h-100">
+                <h5 class="fw-bold text-white mb-3">📋 Préstamos Pendientes</h5>
+                <ul class="list-group list-group-flush bg-transparent">
+                    {% for p in prestamos %}
+                    <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between align-items-center px-0">
+                        <div>
+                            <strong>{{ p.cantidad }}x {{ p.material.nombre }}</strong>
+                            <br>
+                            <small class="text-muted">Retiró: {{ p.responsable }}</small>
+                        </div>
+                        <a href="{% url 'devolver_material' p.id %}" class="btn btn-sm btn-outline-success">Devolver</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item bg-transparent text-muted text-center py-4 border-0">
+                        No hay préstamos pendientes.
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

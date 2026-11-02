@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 600px;">
+    <h2 class="fw-bold text-white mb-4"><span style="color: #e91e63;">▌</span> {{ titulo }}</h2>
+    
+    <form method="POST" class="card card-dark card-glow p-4 shadow">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-light">Nombre</label>
+                <input type="text" name="nombre" value="{{ socio.nombre|default:'' }}" class="form-control form-control-dark" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-light">Apellido</label>
+                <input type="text" name="apellido" value="{{ socio.apellido|default:'' }}" class="form-control form-control-dark" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-light">DNI</label>
+                <input type="text" name="dni" value="{{ socio.dni|default:'' }}" class="form-control form-control-dark" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-light">Fecha de Nacimiento</label>
+                <input type="date" name="fecha_nacimiento" value="{{ socio.fecha_nacimiento|date:'Y-m-d'|default:'' }}" class="form-control form-control-dark" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-light">Teléfono</label>
+                <input type="text" name="telefono" value="{{ socio.telefono|default:'' }}" class="form-control form-control-dark" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-light">Email</label>
+                <input type="email" name="email" value="{{ socio.email|default:'' }}" class="form-control form-control-dark">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label text-light">Categoría</label>
+            <select name="categoria" class="form-select form-select-dark" required>
+                {% for clave, valor in categorias %}
+                    <option value="{{ clave }}" {% if socio.categoria == clave %}selected{% endif %}>{{ valor }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="apto_medico_al_dia" id="apto" {% if socio.apto_medico_al_dia %}checked{% endif %}>
+            <label class="form-check-label text-light" for="apto">
+                Apto Médico URTF Presentado
+            </label>
+        </div>
+
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" name="activo" id="activo" {% if socio.activo or socio == None %}checked{% endif %}>
+            <label class="form-check-label text-light" for="activo">
+                Socio Activo
+            </label>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'lista_socios' %}" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-fucsia px-4">Guardar Socio</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

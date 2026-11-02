@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las Águilas Rugby Club</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #111111;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        
+        /* Navbar */
+        .navbar-lasaguilas {
+            background-color: #000000 !important;
+            border-bottom: 3px solid #e91e63;
+        }
+        .navbar-lasaguilas .nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+            transition: color 0.2s ease-in-out;
+        }
+        .navbar-lasaguilas .nav-link:hover, 
+        .navbar-lasaguilas .nav-link.active {
+            color: #e91e63 !important;
+        }
+
+        /* Tarjetas, Tablas y Formularios en Modo Oscuro */
+        .card-dark {
+            background-color: #1a1a1a !important;
+            border: 1px solid #2d2d2d !important;
+            color: #ffffff !important;
+            border-radius: 1rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Efecto Hover Glow Fucsia */
+        .card-glow:hover, .table-glow tr:hover {
+            border-color: #e91e63 !important;
+            box-shadow: 0 0 15px rgba(233, 30, 99, 0.5) !important;
+        }
+
+        /* Ajustes de Tablas */
+        .table-dark-custom {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .table-dark-custom th {
+            background-color: #222222;
+            color: #e91e63;
+            border-bottom: 2px solid #e91e63;
+        }
+        .table-dark-custom td {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            border-color: #2d2d2d;
+        }
+
+        /* Inputs y Selects */
+        .form-control-dark, .form-select-dark {
+            background-color: #222222 !important;
+            border: 1px solid #333333 !important;
+            color: #ffffff !important;
+        }
+        .form-control-dark:focus, .form-select-dark:focus {
+            border-color: #e91e63 !important;
+            box-shadow: 0 0 8px rgba(233, 30, 99, 0.5) !important;
+        }
+
+        /* Botón Primario Fucsia */
+        .btn-fucsia {
+            background-color: #e91e63;
+            color: #ffffff;
+            border: none;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-fucsia:hover {
+            background-color: #c2185b;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(233, 30, 99, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-lasaguilas shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{% url 'home' %}">
+                <span>🏉</span> Las Águilas RC
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'lista_socios' %}">Socios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'lista_cuotas' %}">Cuotas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'lista_entrenamientos' %}">Entrenamientos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'lista_inventario' %}">Inventario</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

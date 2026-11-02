@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <!-- Banner Principal con Fondo Fucsia/Negro, Dirección e Imagen -->
+    <div class="p-4 p-md-5 mb-5 rounded-4 text-white shadow-lg position-relative overflow-hidden" 
+         style="background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(233, 30, 99, 0.85) 100%), url('{% static "img/cancha.jpg" %}'); background-size: cover; background-position: center; border: 1px solid #e91e63;">
+        
+        <div class="container-fluid position-relative d-flex justify-content-between align-items-center" style="z-index: 2;">
+            <div>
+                <span class="badge mb-2 px-3 py-2 fw-semibold" style="background-color: #000000; color: #ffffff; border: 1px solid #e91e63;">
+                    📍 Av. Héroes de Malvinas 2100 — Ushuaia, Tierra del Fuego
+                </span>
+                <h1 class="display-4 fw-bold mb-1 text-white">Club de Rugby Las Águilas</h1>
+                <p class="fs-5 text-light opacity-90 mb-0">Sistema de Gestión Administrativa y Deportiva</p>
+            </div>
+
+            <!-- Logo Superior Derecho -->
+            <div class="text-end d-none d-md-block">
+                <img src="{% static 'img/logo.png' %}" alt="Logo Las Águilas" class="img-fluid drop-shadow" style="max-height: 110px;" onerror="this.style.display='none';">
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección Botones Principales -->
+    <h4 class="fw-bold mb-4 text-white d-flex align-items-center gap-2">
+        <span style="color: #e91e63;">▌</span> Accesos Principales
+    </h4>
+
+    <div class="row g-4 mb-5">
+        <!-- Botón Socios -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <a href="{% url 'lista_socios' %}" class="btn-menu-action card h-100 border-0 shadow-sm text-decoration-none p-4 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fs-2">👥</span>
+                    <span class="badge rounded-pill px-3 py-2 text-white" style="background-color: #e91e63;">{{ total_socios }} Activos</span>
+                </div>
+                <div>
+                    <h4 class="fw-bold text-white mb-1">Socios</h4>
+                    <p class="text-secondary small mb-0">Gestión de altas y padrón general</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Botón Aptos Médicos -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <a href="{% url 'lista_socios' %}" class="btn-menu-action card h-100 border-0 shadow-sm text-decoration-none p-4 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fs-2">🏥</span>
+                    <span class="badge bg-danger rounded-pill px-3 py-2">{{ socios_sin_apto }} Pendientes</span>
+                </div>
+                <div>
+                    <h4 class="fw-bold text-white mb-1">Aptos Médicos</h4>
+                    <p class="text-secondary small mb-0">Control de apto físico URTF</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Botón Cuotas -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <a href="{% url 'lista_cuotas' %}" class="btn-menu-action card h-100 border-0 shadow-sm text-decoration-none p-4 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fs-2">💳</span>
+                    <span class="badge bg-light text-dark fw-bold rounded-pill px-3 py-2">+ Cobrar</span>
+                </div>
+                <div>
+                    <h4 class="fw-bold text-white mb-1">Cuotas</h4>
+                    <p class="text-secondary small mb-0">Registro de cobros e historial</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Botón Inventario -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <a href="{% url 'lista_inventario' %}" class="btn-menu-action card h-100 border-0 shadow-sm text-decoration-none p-4 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fs-2">📦</span>
+                    <span class="badge bg-light text-dark fw-bold rounded-pill px-3 py-2">Stock</span>
+                </div>
+                <div>
+                    <h4 class="fw-bold text-white mb-1">Inventario</h4>
+                    <p class="text-secondary small mb-0">Pelotas, indumentaria y préstamos</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Barra de Entrenamientos -->
+    <div class="p-4 rounded-4 shadow-sm d-flex flex-wrap align-items-center justify-content-between gap-3" 
+         style="background-color: #1a1a1a; border: 1px solid #2a2a2a;">
+        <div class="d-flex align-items-center gap-2">
+            <span class="fs-4">🏉</span>
+            <h5 class="fw-bold mb-0 text-white">¿Querés registrar una práctica de entrenamiento?</h5>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{% url 'lista_entrenamientos' %}" class="btn btn-outline-light fw-bold px-4">Ver Prácticas</a>
+            <a href="{% url 'crear_entrenamiento' %}" class="btn fw-bold px-4 text-white" style="background-color: #e91e63;">+ Programar</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Estilo base de los botones del menú */
+    .btn-menu-action {
+        background-color: #1a1a1a !important;
+        border: 1px solid #2d2d2d !important;
+        transition: all 0.3s ease-in-out;
+        border-radius: 1rem;
+    }
+    
+    /* Iluminación con contorno Fucsia Neón e iluminación interna al pasar el cursor */
+    .btn-menu-action:hover {
+        border-color: #e91e63 !important;
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px rgba(233, 30, 99, 0.6) !important;
+    }
+
+    .drop-shadow {
+        filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.7));
+    }
+</style>
+{% endblock %}
